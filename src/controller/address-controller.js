@@ -2,18 +2,14 @@ const prisma = require("../model/prisma");
 
 exports.getAddress = async (req, res, next) => {
   try {
-    const addresses = await prisma.address.findMany({
-      //   // select: {
-      //   //         firstName:  true
-      //   //     }
-    });
+    const addresses = await prisma.address.findMany({});
     // const addresses = await prisma.address.findMany({
     //   where: {
     //     addressId: +req.address.id,
     //   },
     // });
-    console.log(addresses);
-    res.status(200).json(addresses);
+    // console.log(addresses);
+    res.status(200).json({ addresses });
   } catch (err) {
     console.log(err);
     next(err);
@@ -21,11 +17,11 @@ exports.getAddress = async (req, res, next) => {
 };
 
 exports.getAddressById = async (req, res, next) => {
-  const addressId = +req.params.addressId;
+  const addressId = req.params.addressId;
   try {
     const address = await prisma.address.findUnique({
       where: {
-        id: addressId,
+        id: +addressId,
       },
     });
     console.log(address);
