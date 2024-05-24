@@ -6,6 +6,7 @@ const notFoundMiddleware = require('./middleware/not-found')
 const errorMiddleware = require('./middleware/error')
 // const rateLimitMiddleware = require('./middleware/rate-limit')
 const addressRoute = require('./routes/address-route')
+const authRoute =require('./routes/auth-route')
 
 // application object for create server
 const app = express();
@@ -14,8 +15,11 @@ app.use(cors());
 app.use(morgan("dev"))
 // app.use(rateLimitMiddleware)
 app.use(express.json())
+// app.use(express.raw())
+
 
 app.use("/address",addressRoute)
+app.use("/auth", authRoute)
 
 app.use(notFoundMiddleware)
 app.use(errorMiddleware)

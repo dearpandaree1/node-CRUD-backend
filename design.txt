@@ -1,0 +1,36 @@
+REGISTER
+### Check username ###
+GET /auth/username
+BODY username
+RESPONSE
+200 { message: String, suggestedUsername} OR 200 { message: String, requestedUsername}
+------------------------
+### Create user ###
+POST /auth/register
+BODY username, email, password
+201 { accessToken: String, user: { id: Number, username: String } }
+400 { message: String, emailExist: true }
+500 { message: String }
+
+LOGIN
+POST /auth/login
+BODY username, password
+RESPONSE
+200 { accessToken: String, user: { id: Number, username: String } }
+400 { message: String } // Bad Request
+500 { message: String }
+
+GET AUTHENTICATED USER
+GET /auth/me
+HEADER AUTHORIZATION Bearer ACCESS_TOKEN
+RESPONSE
+200 { user: { id: Number, username: String, ... } }
+401 { message: String }
+500 { message: String }
+
+ME
+GET /auth/me
+Bearer Token
+RESPONSE
+200 { accessToken: String, user: { id: Number, username: String } }
+
