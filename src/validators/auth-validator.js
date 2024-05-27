@@ -13,8 +13,14 @@ const registerSchema = Joi.object({
 });
 
 const loginSchema = Joi.object({
-    username: Joi.string().required(),
-    password: Joi.string().required(),
+    username: Joi.string()
+        .pattern(/^[a-zA-Z0-9]{4,30}$/)
+        .trim(),
+    email: Joi.string().trim().email(),
+    password: Joi.string()
+        .pattern(/^[a-zA-Z0-9]{4,30}$/)
+        .trim()
+        .required(),
 });
 
 exports.registerSchema = registerSchema;

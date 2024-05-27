@@ -153,7 +153,7 @@ exports.login = async (req, res, next) => {
         // check username in database
         const user = await prisma.user.findFirst({
             where: {
-                username: value.username,
+                OR: [{ username: value.username }, { email: value.email }],
             },
         });
         if (!user) {
